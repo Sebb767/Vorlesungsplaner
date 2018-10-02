@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" ng-app="Vorlesungsplaner">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,7 +41,7 @@
             <a class="navbar-brand" href="#">Vorlesungsplaner</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right">
+            <form class="navbar-form navbar-right" ng-controller="searchCtrl">
                 <div class="form-group">
                     <input type="text" placeholder="Vorlesungname oder Studiengang" class="form-control">
                 </div>
@@ -54,7 +54,7 @@
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
-    <div class="container">
+    <div class="container" ng-controller="genCtrl">
         <h1>Ausgewählte Vorlesungen</h1>
         <p class="non-selected-note">Keine Vorlesungen ausgewählt.</p>
 
@@ -80,7 +80,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container" ng-controller="listCtrl">
     <h1>Vorlesungen</h1>
 
     <div class="well">
