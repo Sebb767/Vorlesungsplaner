@@ -1,0 +1,17 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.btn-add {
+    margin-right: 2em;
+}
+
+.non-selected-note {
+    color: #4b4b4b;
+}
+
+h1, h2 {
+    margin-bottom: 1em;
+}
