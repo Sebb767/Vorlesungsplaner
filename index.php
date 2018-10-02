@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Kalender Generator">
+    <meta name="description" content="Hier kann man einen Kalender für seine Vorlesungen an der FHWS generieren lassen.">
     <meta name="author" content="Sebastian Kaim">
     <!--<link rel="icon" href="../../favicon.ico">-->
 
@@ -43,10 +43,10 @@
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right">
                 <div class="form-group">
-                    <input type="text" placeholder="Suchen" class="form-control">
+                    <input type="text" placeholder="Vorlesungname oder Studiengang" class="form-control">
                 </div>
 
-                <button type="submit" class="btn btn-success">Search</button>
+                <button type="submit" class="btn btn-success">Suchen</button>
             </form>
         </div><!--/.navbar-collapse -->
     </div>
