@@ -90,7 +90,14 @@
     <hr>
 
     <footer>
-        <p>&copy; 2018-<?php echo date("Y"); ?> Sebastian Kaim</p>
+        <p>&copy; <?php
+            $year = date("Y");
+
+            if($year == "2018")
+                echo $year;
+            else
+                echo "2018-$year"
+            ?> Sebastian Kaim</p>
     </footer>
 </div> <!-- /container -->
 
