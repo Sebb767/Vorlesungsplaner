@@ -48,7 +48,7 @@
 <div class="jumbotron">
     <div class="container" ng-controller="genCtrl">
         <h1>Ausgewählte Vorlesungen</h1>
-        <p class="non-selected-note">Keine Vorlesungen ausgewählt.</p>
+        <p class="non-selected-note" ng-show="classes.length === 0">Keine Vorlesungen ausgewählt.</p>
 
 
         <table class="table">
@@ -61,11 +61,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">Programmieren 1</th>
-                <td>Heinzl</td>
-                <td>BIN 1</td>
-                <td><button class="btn btn-warning">Löschen</button> </td>
+            <tr ng-repeat="cl in classes">
+                <th scope="row">{{ cl.name }}</th>
+                <td>{{ cl.lecturerNamesToShow }}</td>
+                <td>{{ cl.studyGroupsToShow }}</td>
+                <td><button class="btn btn-warning" ng-click="unselect(cl.id);">Löschen</button> </td>
             </tr>
             </tbody>
         </table>
@@ -75,8 +75,10 @@
 <div class="container" ng-controller="listCtrl">
     <h1>Vorlesungen</h1>
 
-    <div class="well">
-        <button class="btn btn-success btn-add">+</button>Programmieren II
+    <div class="well" ng-repeat="cl in classes | idNotInArray:ignored">
+        <button class="btn btn-success btn-add" ng-click="select(cl.id)">+</button>
+        {{ cl.name }} - {{ cl.studyGroupsToShow }}
+        <span class="lecturer-name pull-right">{{ cl.lecturerNamesToShow }}</span>
     </div>
 
     <hr>
