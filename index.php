@@ -80,7 +80,13 @@
                          <input class="url-field" type="text" readonly="readonly" ng-value="dllink" onclick="this.select()">
                     </div>
                     <div class="col-sm-4 col-md-4 col-lg-3">
-                        <button class="btn btn-success" ng-click="copyLinkToClipboard()">Kopieren</button>
+                        <button
+                                class="btn btn-success"
+                                ng-click="copyLinkToClipboard()"
+                                data-toggle="popover"
+                                data-trigger="click"
+                                data-placement="top"
+                                data-content="Link kopiert!">Kopieren</button>
                         <button class="btn btn-success">Downloaden</button>
                     </div>
                 </div>
@@ -122,5 +128,14 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/angular.min.js"></script>
 <script src="js/app.js"></script>
+<script>
+$(function () {
+    $('[data-toggle="popover"]').popover().click(function () {
+        setTimeout(function () {
+            $('[data-toggle="popover"]').popover('hide');
+        }, 2000);
+    });
+});
+</script>
 </body>
 </html>
