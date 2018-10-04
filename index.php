@@ -35,7 +35,8 @@
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right" ng-controller="searchCtrl">
                 <div class="form-group">
-                    <input type="text" placeholder="Vorlesungname oder Studiengang" class="form-control">
+                    <input type="text" placeholder="Suchtext" class="form-control"
+                           data-toggle="tooltip" title="Tipp: Du kannst nach dem Vorlesungsnamen, Dozenten und einem Studiengang (auch mit Semester) suchen. Beispiel: 'Programmieren BIN2'">
                 </div>
 
                 <button type="submit" class="btn btn-success">Suchen</button>
@@ -134,6 +135,11 @@ $(function () {
         setTimeout(function () {
             $('[data-toggle="popover"]').popover('hide');
         }, 2000);
+    });
+
+    $('[data-toggle="tooltip"]').tooltip({
+        placement: "bottom",
+        trigger: "focus"
     });
 });
 </script>

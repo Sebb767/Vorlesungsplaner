@@ -1,5 +1,3 @@
-
-
 var app = angular.module('Vorlesungsplaner', []);
 var upstream = "https://fiwis.fiw.fhws.de/fiwis2/api/classes/";
 var icsBaseUrl = "https://unicorns.diamonds/vp/ics.php";
