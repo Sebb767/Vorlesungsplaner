@@ -93,7 +93,7 @@
                                 data-trigger="click"
                                 data-placement="top"
                                 data-content="Link kopiert!">Kopieren</button>
-                        <a href="{{ dllink }}&download">
+                        <a href="{{ dllink }}&download" target="_blank">
                             <button class="btn btn-success">Downloaden</button>
                         </a>
                     </div>
