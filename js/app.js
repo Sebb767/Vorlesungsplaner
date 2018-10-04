@@ -1,6 +1,5 @@
 var app = angular.module('Vorlesungsplaner', []);
 var upstream = "https://fiwis.fiw.fhws.de/fiwis2/api/classes/";
-var icsBaseUrl = "https://unicorns.diamonds/vp/ics.php";
 
 app.config(function($locationProvider) { $locationProvider.html5Mode({
     enabled: true,
@@ -145,12 +144,20 @@ app.controller('searchCtrl', [ '$scope', '$rootScope', 'download', function ($sc
 
 }]);
 
-app.controller('genCtrl', [ '$scope', '$rootScope', '$copyToClipboard', 'download', function ($scope, $rootScope, $ctc, dl) {
+app.controller('genCtrl', [ '$scope', '$rootScope', '$copyToClipboard', '$location', 'download',
+    function ($scope, $rootScope, $ctc, $location, dl) {
     $scope.classes = [];
     $scope.dllink = "";
 
     var updateDlLink = function() {
-        $scope.dllink = icsBaseUrl + "?classes=" + $scope.classes.map(function (c) { return c.id; }).join(",");
+        var url = $location.absUrl();
+        if(url.indexOf('?') !== -1) { // strip query parameter
+            url = url.substr(0, url.indexOf('?'));
+        }
+        if(url.indexOf('#') !== -1) { // strip anchor
+            url = url.substr(0, url.indexOf('#'));
+        }
+        $scope.dllink = url + "ics.php?classes=" + $scope.classes.map(function (c) { return c.id; }).join(",");
     };
 
     $scope.$on('classSelected', function (ev, data) {
