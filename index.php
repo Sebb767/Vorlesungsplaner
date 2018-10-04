@@ -130,7 +130,10 @@
                 echo $year;
             else
                 echo "2018-$year"
-            ?> Sebastian Kaim</p>
+            ?> <a href="https://kaim-consulting.com/">Sebastian Kaim</a>
+            &#183; Lizensiert unter der <a href="https://choosealicense.com/licenses/mit/">MIT Linzenz</a>
+            &#183; Source auf <a href="https://github.com/Sebb767/Vorlesungsplaner">GitHub</a>
+        </p>
     </footer>
 </div> <!-- /container -->
 
