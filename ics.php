@@ -53,9 +53,16 @@ if(isset($_REQUEST['download'])) {
     header('content-disposition: inline; filename="Vorlesungsplan.ics"');
 }
 
+$name = "Vorlesungsplan FWHS";
+$descr = "Generierter persönlicher Vorlesungsplan für meine Vorlesungen an der FHWS";
+
 $data = [ "BEGIN:VCALENDAR
 PRODID:-//SEBASTIAN KAIM//VP 1.0//EN
 VERSION:2.0
+NAME:$name
+X-WR-CALNAME:$name
+DESCRIPTION:$descr
+X-WR-CALDESC:$descr
 CALSCALE:GREGORIAN" ];
 
 if(isset($_REQUEST['classes'])) {
