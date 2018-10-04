@@ -50,6 +50,68 @@ app.filter('idNotInArray', function($filter) {
     };
 });
 
+app.filter('classSearch', function($filter) {
+    var keywordCache = {};
+
+    function splitByWhitespace(str) {
+        if(!str)
+            return [];
+        else
+            return str.match(/[^\s]+/g);
+    }
+
+    function getClassKeywords(cl) {
+        if(cl.id in keywordCache)
+            return keywordCache[cl.id];
+
+        var keywords = [];
+
+        // add semester keyword, i.e. BIN3
+        cl.studentsView.forEach(function (el) {
+            keywords.push(el.program + el.semester);
+        });
+
+        // add lecturer name and title as keyword
+        cl.lecturerView.forEach(function (el) {
+            keywords.push(el.firstName);
+            keywords.push(el.lastName);
+            keywords = keywords.concat(splitByWhitespace(el.title));
+        });
+
+        // lastly, add the lecture name and official id
+        keywords.push(cl.name);
+        keywords.push(cl.id);
+
+        // make everything lowercase and remove nulls
+        keywords = keywords
+            .filter(function(kw) { return kw; })
+            .map(function (kw) { return kw.toString().toLowerCase(); });
+
+        keywordCache[cl.id] = keywords;
+        return keywords;
+    }
+
+    // returns true when all words in the query array are contained in keywords
+    function crossMatch(query, keywords) {
+        return !query.some(function (q) { return !keywords.some(function(kw) { return kw.indexOf(q) !== -1; }); });
+    }
+
+    return function(list, query) {
+        if(query) {
+            var parts = splitByWhitespace(query.toLowerCase());
+
+            return $filter("filter")(list, function(listItem) {
+                var keywords = getClassKeywords(listItem);
+                return crossMatch(parts, keywords);
+            });
+        }
+
+        return $filter("filter")(list, function(listItem) {
+            return true;
+        });
+    };
+});
+
 app.factory('download', ['$rootScope', '$http', function($rootScope, $http) {
     var dlSize = 100;
 
@@ -88,7 +150,7 @@ app.factory('download', ['$rootScope', '$http', function($rootScope, $http) {
 app.controller('listCtrl', [ '$rootScope', '$scope', '$location', 'download', function ($rootScope, $scope, $location, dl) {
     $scope.classes = [];
     $scope.ignored = [];
-    $scope.search = {};
+    $scope.query = "";
 
     var params = $location.search();
     if('classes' in params) {
@@ -137,11 +199,19 @@ app.controller('listCtrl', [ '$rootScope', '$scope', '$location', 'download', fu
         }
     });
 
+    $scope.$on('searchUpdated', function (ev, data) {
+        $scope.query = data;
+    });
+
     dl.fetch();
 }]);
 
-app.controller('searchCtrl', [ '$scope', '$rootScope', 'download', function ($scope, $rootScope, dl) {
+app.controller('searchCtrl', [ '$scope', '$rootScope', function ($scope, $rootScope) {
+    $scope.query = "";
 
+    $scope.broadcastQuery = function () {
+        $rootScope.$broadcast('searchUpdated', $scope.query);
+    }
 }]);
 
 app.controller('genCtrl', [ '$scope', '$rootScope', '$copyToClipboard', '$location', 'download',
@@ -182,5 +252,5 @@ app.controller('genCtrl', [ '$scope', '$rootScope', '$copyToClipboard', '$locati
 
     $scope.copyLinkToClipboard = function () {
         $ctc.copy($scope.dllink);
-    }
+    };
 }]);

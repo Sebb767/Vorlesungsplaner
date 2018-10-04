@@ -35,7 +35,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right" ng-controller="searchCtrl">
                 <div class="form-group">
-                    <input type="text" placeholder="Suchtext" class="form-control"
+                    <input type="text" placeholder="Suchtext" class="form-control" ng-model="query" ng-change="broadcastQuery()"
                            data-toggle="tooltip" title="Tipp: Du kannst nach dem Vorlesungsnamen, Dozenten und einem Studiengang (auch mit Semester) suchen. Beispiel: 'Programmieren BIN2'">
                 </div>
 
@@ -108,7 +108,7 @@
 <div class="container" ng-controller="listCtrl">
     <h1>Vorlesungen</h1>
 
-    <div class="well" ng-repeat="cl in classes | idNotInArray:ignored">
+    <div class="well" ng-repeat="cl in classes | idNotInArray:ignored | classSearch:query">
         <div class="row">
             <div class="col-sm-12 col-md-8">
                 <button class="btn btn-success btn-add" ng-click="select(cl.id)">+</button>
