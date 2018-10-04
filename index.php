@@ -51,24 +51,43 @@
         <p class="non-selected-note" ng-show="classes.length === 0">Keine Vorlesungen ausgewählt.</p>
 
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Dozent</th>
-                <th scope="col">Semester</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="cl in classes">
-                <th scope="row">{{ cl.name }}</th>
-                <td>{{ cl.lecturerNamesToShow }}</td>
-                <td>{{ cl.studyGroupsToShow }}</td>
-                <td><button class="btn btn-warning" ng-click="unselect(cl.id);">Löschen</button> </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="selected-showcase" ng-show="classes.length !== 0">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Dozent</th>
+                    <th scope="col">Semester</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="cl in classes">
+                    <th scope="row">{{ cl.name }}</th>
+                    <td>{{ cl.lecturerNamesToShow }}</td>
+                    <td>{{ cl.studyGroupsToShow }}</td>
+                    <td><button class="btn btn-warning" ng-click="unselect(cl.id);">Löschen</button> </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="well well-sm alert-success">
+                <div class="row">
+                    <div class="col-sm-2 col-md-1 url-field-text">
+                        ICS Link:
+                    </div>
+                    <div class="col-sm-6 col-md-7 col-lg-8">
+                         <input class="url-field" type="text" readonly="readonly" ng-value="dllink">
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-3">
+                        <button class="btn btn-success">Kopieren</button>
+                        <button class="btn btn-success">Downloaden</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 </div>
 
