@@ -18,6 +18,7 @@ h1, h2 {
 
 .lecturer-name {
     font-style: italic;
+    float: right;
 }
 
 .url-field {

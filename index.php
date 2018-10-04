@@ -109,9 +109,15 @@
     <h1>Vorlesungen</h1>
 
     <div class="well" ng-repeat="cl in classes | idNotInArray:ignored">
-        <button class="btn btn-success btn-add" ng-click="select(cl.id)">+</button>
-        {{ cl.name }} - {{ cl.studyGroupsToShow }}
-        <span class="lecturer-name pull-right">{{ cl.lecturerNamesToShow }}</span>
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                <button class="btn btn-success btn-add" ng-click="select(cl.id)">+</button>
+                {{ cl.name }} - {{ cl.studyGroupsToShow }}
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <span class="lecturer-name">{{ cl.lecturerNamesToShow }}</span>
+            </div>
+        </div>
     </div>
 
     <hr>
