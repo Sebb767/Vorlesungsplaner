@@ -53,6 +53,11 @@
 
 
         <div class="selected-showcase" ng-show="classes.length !== 0">
+            <div class="alert alert-info">
+                <b>Tipp:</b> Du kannst diesen Link zu deinen Bookmarks hinzufügen oder teilen, um wieder zu deinem
+                persönlichem Plan zu kommen.
+            </div>
+
             <table class="table">
                 <thead>
                 <tr>
