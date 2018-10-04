@@ -9,6 +9,40 @@ app.config(function($locationProvider) { $locationProvider.html5Mode({
     requireBase: false
 }); });
 
+// https://stackoverflow.com/a/46532967
+app.provider('$copyToClipboard', [function () {
+
+    this.$get = ['$q', '$window', function ($q, $window) {
+        var body = angular.element($window.document.body);
+        var textarea = angular.element('<textarea/>');
+        textarea.css({
+            position: 'fixed',
+            opacity: '0'
+        });
+        return {
+            copy: function (stringToCopy) {
+                var deferred = $q.defer();
+                deferred.notify("copying the text to clipboard");
+                textarea.val(stringToCopy);
+                body.append(textarea);
+                textarea[0].select();
+
+                try {
+                    var successful = $window.document.execCommand('copy');
+                    if (!successful) throw successful;
+                    deferred.resolve(successful);
+                } catch (err) {
+                    deferred.reject(err);
+                    //window.prompt("Copy to clipboard: Ctrl+C, Enter", toCopy);
+                } finally {
+                    textarea.remove();
+                }
+                return deferred.promise;
+            }
+        };
+    }];
+}]);
+
 app.filter('idNotInArray', function($filter) {
     return function(list, arrayFilter) {
         if(arrayFilter) {
@@ -113,7 +147,7 @@ app.controller('searchCtrl', [ '$scope', '$rootScope', 'download', function ($sc
 
 }]);
 
-app.controller('genCtrl', [ '$scope', '$rootScope', 'download', function ($scope, $rootScope, dl) {
+app.controller('genCtrl', [ '$scope', '$rootScope', '$copyToClipboard', 'download', function ($scope, $rootScope, $ctc, dl) {
     $scope.classes = [];
     $scope.dllink = "";
 
@@ -141,4 +175,7 @@ app.controller('genCtrl', [ '$scope', '$rootScope', 'download', function ($scope
         updateDlLink();
     };
 
+    $scope.copyLinkToClipboard = function () {
+        $ctc.copy($scope.dllink);
+    }
 }]);
