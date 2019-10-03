@@ -5,13 +5,49 @@
 // then simply pastes together the content from all the calendars in the template
 
 /**
- * Fetches the ical data from the FIWIS api.
- * @param $id int The id to look for.
+ * Attempts to fetch the ical data. It does so by using the correct API, if specified, and tries all of them otherwise.
+ * @param $id string The id to look for. Can either be the id of the class or prefixed with the correct endpoint, i.e. 'fiw:123456'.
  * @return string The raw response text
  */
 function fetchIcs($id) {
+    $config = require 'config.php';
+    $splitterPos = mb_strpos($id, ':');
+    error_log("id $id");
+
+    // if an endpoint is specified, use it
+    if ($splitterPos !== false) {
+        $faculty = mb_substr($id, 0, $splitterPos);
+        $idInt = (int)mb_substr($id, $splitterPos + 1);
+        error_log("idint $idInt fac $faculty url ".$config[$faculty]);
+
+        // skip the entry if the faculty is invalid
+        if (!isset($config[$faculty]))
+            return "";
+
+        return fetchIcsFromApi($idInt, $config[$faculty]);
+    }
+    // otherwise just try all of them
+    else {
+        foreach ($config as $faculty => $url) {
+            $rv = fetchIcsFromApi((int)$id, $url);
+            if ($rv != "") {
+                return $rv;
+            }
+        }
+
+        return '';
+    }
+}
+
+/**
+ * Attempts to fetch the ical-data for a class from a specific url.
+ * @param $id int The id to look for.
+ * @param $apiUrl string The base url for fetching the data.
+ * @return string The raw response text.
+ */
+function fetchIcsFromApi($id, $apiUrl) {
     $id = (int)$id; // this will prevent non-numeric input
-    $url = "https://fiwis.fiw.fhws.de/fiwis2/api/classes/$id/ical";
+    $url = "$apiUrl/$id/ical";
 
     $ch = curl_init($url);
 
@@ -20,6 +56,9 @@ function fetchIcs($id) {
 
     // return response data instead of outputting
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // set a low timeout to avoid overly long loading times
+    curl_setopt($ch, CURLOPT_TIMEOUT, 3);
 
     //execute the POST request
     $result = curl_exec($ch);

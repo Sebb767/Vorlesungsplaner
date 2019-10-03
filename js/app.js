@@ -1,5 +1,6 @@
 var app = angular.module('Vorlesungsplaner', []);
-var upstream = "https://fiwis.fiw.fhws.de/fiwis2/api/classes/";
+// for now just take the first upstream
+var upstream = sources[Object.keys(sources)[0]];
 
 app.config(function($locationProvider) { $locationProvider.html5Mode({
     enabled: true,
