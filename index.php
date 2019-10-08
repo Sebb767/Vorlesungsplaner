@@ -108,6 +108,19 @@
 <div class="container" ng-controller="listCtrl">
     <h1><span ng-hide="loaded"><img src="loading.gif" class="loading-spinner">&nbsp;</span> Vorlesungen</h1>
 
+    <div class="loading-error-container" ng-hide="loadingErrors.length === 0">
+        <div class="alert alert-warning loading-error-alert" role="alert">
+            <b>Fehler!</b> Die Daten einiger Fakultäten konnten nur teilweise oder gar nicht geladen werden:
+
+            <ul>
+                <li ng-repeat="faculty in loadingErrors">{{ faculty }}</li>
+            </ul>
+
+            Sofern Sie Vorlesungen dieser Fakultät benötigen laden Sie bitte die Seite neu. Wenn der<br>
+            Fehler dauerhaft bestehen bleibt wenden Sie sich bitte an den Administrator.
+        </div>
+    </div>
+
     <div class="well" ng-repeat="cl in classes | idNotInArray:ignored | classSearch:query">
         <div class="row">
             <div class="col-sm-12 col-md-8">

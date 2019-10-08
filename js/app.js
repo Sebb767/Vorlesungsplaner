@@ -139,7 +139,7 @@ app.factory('download', ['$rootScope', '$http', function($rootScope, $http) {
                 fetch(offset + dlSize);
             }
         }, function errorCallback(response) {
-            $rootScope.$broadcast('fetchError', false);
+            $rootScope.$broadcast('fetchError', { faculty: "fiw" });
         });
     }
 
@@ -153,6 +153,7 @@ app.controller('listCtrl', [ '$rootScope', '$scope', '$location', 'download', fu
     $scope.ignored = [];
     $scope.query = "";
     $scope.loaded = false;
+    $scope.loadingErrors = [];
 
     var params = $location.search();
     if('classes' in params) {
@@ -187,6 +188,11 @@ app.controller('listCtrl', [ '$rootScope', '$scope', '$location', 'download', fu
     $scope.$on('classUnselected', function (ev, id) {
         $scope.ignored = $scope.ignored.filter(function (e) { return e !== id; });
         updateLocation();
+    });
+
+    $scope.$on('fetchError', function (ev, data) {
+        if (data.faculty)
+            $scope.loadingErrors.push(data.faculty);
     });
 
     $scope.$on('$locationChangeSuccess', function (ev, data) {

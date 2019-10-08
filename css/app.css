@@ -34,3 +34,17 @@ h1, h2 {
 .loading-spinner {
     height: 1em;
 }
+
+.loading-error-alert {
+    margin: -10px auto 20px;
+    /* dsiplay:block causes the content to use 100% width and display:inline-block doesn't center correctly */
+    display: table;
+}
+
+.loading-error-alert ul {
+    margin: 6px 0;
+}
+
+.loading-error-container {
+    width: 100%;
+}
