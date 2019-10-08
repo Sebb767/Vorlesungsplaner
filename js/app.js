@@ -1,6 +1,4 @@
 var app = angular.module('Vorlesungsplaner', []);
-// for now just take the first upstream
-var upstream = sources[Object.keys(sources)[0]];
 
 app.config(function($locationProvider) { $locationProvider.html5Mode({
     enabled: true,
@@ -122,7 +120,7 @@ app.factory('download', ['$rootScope', '$http', function($rootScope, $http) {
         // this method fetches the JSON data from the API
         $http({
             method: 'GET',
-            url: upstream,
+            url: sources[_faculty],
             params: {
                 size: dlSize,
                 offset: offset
