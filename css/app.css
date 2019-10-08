@@ -48,3 +48,7 @@ h1, h2 {
 .loading-error-container {
     width: 100%;
 }
+
+tr.broken-entry th {
+    color: #ff8c00;
+}

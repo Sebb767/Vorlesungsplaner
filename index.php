@@ -68,10 +68,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="cl in classes">
+                <tr ng-repeat="cl in classes" ng-class="{ 'broken-entry': cl.broken }">
                     <th scope="row">{{ cl.name }}</th>
-                    <td>{{ cl.lecturerNamesToShow }}</td>
-                    <td>{{ cl.studyGroupsToShow }}</td>
+                    <td>{{ cl.lecturerNamesToShow || "-" }}</td>
+                    <td>{{ cl.studyGroupsToShow || "-" }}</td>
                     <td><button class="btn btn-warning" ng-click="unselect(cl.id);">Löschen</button> </td>
                 </tr>
                 </tbody>
