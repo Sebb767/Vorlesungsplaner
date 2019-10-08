@@ -36,7 +36,7 @@
             <form class="navbar-form navbar-right" ng-controller="searchCtrl">
                 <div class="form-group">
                     <input type="text" placeholder="Suchtext" class="form-control" ng-model="query" ng-change="broadcastQuery()"
-                           data-toggle="tooltip" title="Tipp: Du kannst nach dem Vorlesungsnamen, Dozenten und einem Studiengang (auch mit Semester) suchen. Beispiel: 'Programmieren BIN2'">
+                           data-toggle="tooltip" title="Tipp: Du kannst nach dem Vorlesungsnamen, Dozenten, Studiengang (auch mit Semester) und Fakultät suchen. Beispiel: 'Programmieren BIN2'">
                 </div>
 
                 <button type="submit" class="btn btn-success">Suchen</button>

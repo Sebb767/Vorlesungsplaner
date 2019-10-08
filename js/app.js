@@ -79,9 +79,10 @@ app.filter('classSearch', function($filter) {
             keywords = keywords.concat(splitByWhitespace(el.title));
         });
 
-        // lastly, add the lecture name and official id
+        // lastly, add the lecture name, faculty and official id
         keywords.push(cl.name);
-        keywords.push(cl.id);
+        keywords.push(cl.faculty);
+        keywords.push(cl.apiId);
 
         // make everything lowercase and remove nulls
         keywords = keywords
