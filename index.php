@@ -49,10 +49,11 @@
 <div class="jumbotron">
     <div class="container" ng-controller="genCtrl">
         <h1>Ausgewählte Vorlesungen</h1>
-        <p class="non-selected-note" ng-show="classes.length === 0">Keine Vorlesungen ausgewählt.</p>
+        <p class="non-selected-note" ng-show="classes.length === 0 && loaded">Keine Vorlesungen ausgewählt.</p>
+        <p class="non-selected-note" ng-hide="loaded">Lade ...</p>
 
 
-        <div class="selected-showcase" ng-show="classes.length !== 0">
+        <div class="selected-showcase" ng-show="classes.length !== 0 && loaded">
             <div class="alert alert-info">
                 <b>Tipp:</b> Du kannst diesen Link zu deinen Bookmarks hinzufügen oder teilen, um wieder zu deinem
                 persönlichem Plan zu kommen.

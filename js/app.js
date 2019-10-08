@@ -323,6 +323,7 @@ app.controller('genCtrl', [ '$scope', '$rootScope', '$copyToClipboard', '$locati
     function ($scope, $rootScope, $ctc, $location, dl) {
     $scope.classes = [];
     $scope.dllink = "";
+    $scope.loaded = false;
 
     var updateDlLink = function() {
         var url = $location.absUrl();
@@ -358,4 +359,8 @@ app.controller('genCtrl', [ '$scope', '$rootScope', '$copyToClipboard', '$locati
     $scope.copyLinkToClipboard = function () {
         $ctc.copy($scope.dllink);
     };
+
+    $scope.$on('fetchFinishedAll', function(ev, data) {
+        $scope.loaded = true;
+    });
 }]);
