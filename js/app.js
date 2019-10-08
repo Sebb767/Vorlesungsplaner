@@ -152,6 +152,7 @@ app.controller('listCtrl', [ '$rootScope', '$scope', '$location', 'download', fu
     $scope.classes = [];
     $scope.ignored = [];
     $scope.query = "";
+    $scope.loaded = false;
 
     var params = $location.search();
     if('classes' in params) {
@@ -162,12 +163,13 @@ app.controller('listCtrl', [ '$rootScope', '$scope', '$location', 'download', fu
     $scope.$on('classesFound', function(ev, data) {
         console.log("classes added event", data);
         $scope.classes = $scope.classes.concat(data);
+        $scope.loaded = true;
 
         $scope.classes.forEach(function (element, index, arr) {
             // add classes that are ignored via url to the selected class
             if($scope.ignored.indexOf(element.id) !== -1)
                 $rootScope.$broadcast('classSelected', element);
-        })
+        });
     });
 
     var updateLocation = function () {

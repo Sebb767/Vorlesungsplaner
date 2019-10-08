@@ -106,7 +106,7 @@
 </div>
 
 <div class="container" ng-controller="listCtrl">
-    <h1>Vorlesungen</h1>
+    <h1><span ng-hide="loaded"><img src="loading.gif" class="loading-spinner">&nbsp;</span> Vorlesungen</h1>
 
     <div class="well" ng-repeat="cl in classes | idNotInArray:ignored | classSearch:query">
         <div class="row">
