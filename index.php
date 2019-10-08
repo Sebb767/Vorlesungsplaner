@@ -58,6 +58,11 @@
                 <b>Tipp:</b> Du kannst diesen Link zu deinen Bookmarks hinzufügen oder teilen, um wieder zu deinem
                 persönlichem Plan zu kommen.
             </div>
+            <div class="alert alert-warning" ng-show="hasBrokenClasses">
+                <b>Achtung:</b> Zu einigen Vorlesungen konnten keine Daten gefunden werden. Vermutlich ist dies
+                ein temporärer Fehler. Sollte dieser jedoch bestehen bleiben, gibt es entweder die Vorlesung nicht mehr,
+                die API hat einen dauerhaften, technischen Fehler oder die aufgerufene URL ist fehlerhaft.
+            </div>
 
             <table class="table">
                 <thead>

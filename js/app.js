@@ -324,6 +324,7 @@ app.controller('genCtrl', [ '$scope', '$rootScope', '$copyToClipboard', '$locati
     $scope.classes = [];
     $scope.dllink = "";
     $scope.loaded = false;
+    $scope.hasBrokenClasses = false;
 
     var updateDlLink = function() {
         var url = $location.absUrl();
@@ -338,6 +339,10 @@ app.controller('genCtrl', [ '$scope', '$rootScope', '$copyToClipboard', '$locati
 
     $scope.$on('classSelected', function (ev, data) {
         console.log("class selected received", data);
+
+        if (data.broken)
+            $scope.hasBrokenClasses = true;
+
         $scope.classes.push(data);
         updateDlLink();
     });
@@ -345,6 +350,7 @@ app.controller('genCtrl', [ '$scope', '$rootScope', '$copyToClipboard', '$locati
     $scope.$on('classAllSelected', function (ev, data) {
         console.log("full class update received", data);
         $scope.classes = data;
+        $scope.hasBrokenClasses = $scope.classes.filter(function (c) { return c.broken; }).length > 0;
         updateDlLink();
     });
 
